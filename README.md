@@ -8,7 +8,7 @@ Proxy interface for transferring spectrometry sensor data to a PostgreSQL databa
 
 **BLE_SQLAcquisition** is an asynchronous Rust application that bridges a Bluetooth Low Energy (BLE) spectrometry device (e.g., ESP32) with a PostgreSQL database.
 
-It continuously scans for a target device named `ESP32_ATH_SPEC`, connects to it, subscribes to its `INDICATE` characteristic, buffers incoming sensor data, and inserts full datasets into PostgreSQL.  
+It continuously scans for a target device specified in the docker compose, connects to it, subscribes to its `INDICATE` characteristic, buffers incoming sensor data, and inserts full datasets into PostgreSQL.  
 The service is designed to run in Docker and automatically handles reconnections and buffering.
 
 ---
