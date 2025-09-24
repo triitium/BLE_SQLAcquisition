@@ -21,6 +21,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .parse()
         .expect("DATA_SIZE must be a number");
 
+    let value_byte_size: usize = env::var("VALUE_BYTE_SIZE")
+        .unwrap_or_else(|_| "2".into())
+        .parse()
+        .expect("VALUE_BYTE_SIZE must be a number");
+
     let conn_str = format!(
         "host={} user={} password={} dbname={} port={}",
         host, user, password, dbname, port
@@ -97,12 +102,18 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
         let client = pg_client.clone();
         let table_name = table_name.clone();
+        let value_byte_size_clone = value_byte_size;
         peripheral.on_notification(Box::new(move |notif| {
             buffer.extend_from_slice(&notif.value);
 
-            if buffer.len() >= package_size * 2 {
-                let values: Vec<f32> = buffer.chunks(2)
-                    .map(|b| u16::from_le_bytes([b[0], b[1]]) as f32)
+            if buffer.len() >= package_size * value_byte_size_clone {
+                let values: Vec<f32> = buffer.chunks(value_byte_size_clone)
+                    .map(|b| match value_byte_size_clone {
+                        1 => b[0] as f32,
+                        2 => u16::from_le_bytes([b[0], b[1]]) as f32,
+                        4 => f32::from_le_bytes([b[0], b[1], b[2], b[3]]),
+                        _ => panic!("Unsupported VALUE_BYTE_SIZE"),
+                    })
                     .collect();
 
                 let client = client.clone();
