@@ -1,7 +1,7 @@
 # Stage 1: Build Rust project
 FROM rust:1.72 AS builder
 
-WORKDIR /usr/src/app
+WORKDIR /srv/proxy
 
 # Copy Cargo manifests first (cache dependencies)
 COPY Cargo.toml Cargo.lock ./
