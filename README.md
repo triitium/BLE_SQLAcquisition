@@ -73,11 +73,10 @@ All parameters are set via environment variables. When running through Docker Co
 docker compose up --build
 ```
 
-2. Two containers will start:
-   - `database` (PostgreSQL 15 instance)
+2. The container will start:
    - `ble_proxy` (Rust BLE acquisition service)
 
-3. Ensure the `ble_proxy` container has access to your BLE adapter by updating the `devices` section in `docker-compose.yml`. Example:
+3. Ensure the `ble_proxy` container has access to your BLE adapter by updating the `devices` section in `docker-compose.yaml`. Example:
 
 ```yaml
 devices:
