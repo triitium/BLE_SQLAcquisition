@@ -18,6 +18,7 @@ services:
       PG_TABLE: ESP32_athmos_spectro_001
       BLE_DEVICE_NAME: ESP32_ATH_SPEC
       DATA_SIZE: "3648"
+      VALUE_BYTE_SIZE: "2"
     network_mode: bridge
     devices:
       - "/dev/bus/usb/001/005:/dev/bus/usb/001/005" # PLACEHOLDER
