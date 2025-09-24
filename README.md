@@ -89,9 +89,9 @@ Use `lsusb` or `dmesg` on the host to find the correct device path.
 
 ## Usage Notes
 
-- The service retries automatically if the ESP32 disconnects or is unavailable.  
-- All collected datasets (e.g., 3648 datapoints) are inserted into the `PG_TABLE`.  
-- Values are parsed according to `VALUE_BYTE_SIZE` (1, 2, or 4 bytes).  
+- The service retries automatically if the ESP32 disconnects or is unavailable
+- All collected datasets (e.g., 3648 datapoints) are inserted into the `PG_TABLE`
+- Values are parsed according to `VALUE_BYTE_SIZE` (1, 2, or 4 bytes)
 
 ---
 
@@ -100,9 +100,10 @@ Use `lsusb` or `dmesg` on the host to find the correct device path.
 Early-stage implementation intended as a BLE-to-SQL proxy.  
 Planned improvements:
 
-- Configurable device names, datapoint sizes, and characteristic types  
-- Better error handling with exponential backoff  
-- Support for multiple devices and concurrent acquisitions  
+- Configurable characteristic types
+- Better error handling with exponential backoff
+- Support for multiple devices and concurrent acquisitions
+- Support for different database systems
 
 ---
 
