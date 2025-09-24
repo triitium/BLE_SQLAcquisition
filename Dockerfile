@@ -1,0 +1,28 @@
+# Stage 1: Build Rust project
+FROM rust:1.72 AS builder
+
+WORKDIR /usr/src/app
+
+# Copy Cargo manifests first (cache dependencies)
+COPY Cargo.toml Cargo.lock ./
+RUN mkdir src && echo "fn main() {}" > src/main.rs
+RUN cargo build --release
+RUN rm -rf src/*
+
+# Copy full source and build
+COPY ./src ./src
+RUN cargo build --release
+
+# Stage 2: Runtime image (Ubuntu 24.04)
+FROM ubuntu:24.04
+
+# Install runtime dependencies for BLE and Postgres
+RUN apt-get update && apt-get install -y \
+    libssl-dev ca-certificates libdbus-1-dev bluez libudev-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Copy the compiled binary
+COPY --from=builder /usr/src/app/target/release/ble_proxy /usr/local/bin/ble_proxy
+
+# Entrypoint
+CMD ["ble_proxy"]
