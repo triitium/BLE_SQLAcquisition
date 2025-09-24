@@ -2,7 +2,9 @@ version: "3.9"
 
 services:
   ble_proxy:
-    build: ./ble_proxy
+    build:
+      context: .
+      dockerfile: Dockerfile.bleproxy
     container_name: ble_proxy
     restart: unless-stopped
     depends_on:
