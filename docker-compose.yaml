@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  database:
+    image: postgres:15
+    container_name: database
+    environment:
+      POSTGRES_USER: external
+      POSTGRES_PASSWORD: changeme
+      POSTGRES_DB: spectrometry
+    ports:
+      - "5432:5432"
+
+  ble_proxy:
+    build: ./ble_proxy
+    container_name: ble_proxy
+    depends_on:
+      - database
+    environment:
+      PG_USER: external
+      PG_PASSWORD: changeme
+      PG_HOST: database
+      PG_PORT: 5432
+      PG_DBNAME: spectrometry
+    network_mode: bridge
+    devices:
+      - "/dev/bus/usb/001/005:/dev/bus/usb/001/005" # PLACEHOLDER
