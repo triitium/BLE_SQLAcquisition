@@ -38,9 +38,10 @@ The service is designed to run in Docker and automatically handles reconnections
 The application expects the following table in PostgreSQL:
 
 ```sql
-CREATE TABLE sensor_data (
+CREATE TABLE example_table (
     id SERIAL PRIMARY KEY,
-    datapoints FLOAT8[]
+    datapoints REAL[],
+    timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 ```
 
