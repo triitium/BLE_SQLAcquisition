@@ -49,7 +49,7 @@ CREATE TABLE example_table (
 
 ## Configuration
 
-All parameters are set via environment variables. When running through Docker Compose, these are defined in `docker-compose.yml`.
+All parameters are set via environment variables. When running through Docker Compose, these are defined in `docker-compose.yaml`.
 
 | Variable           | Required | Default        | Description |
 |-------------------|----------|----------------|-------------|
