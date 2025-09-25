@@ -1,6 +1,19 @@
 # Stage 1: Build Rust project
 FROM rust:1.72 AS builder
 
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    pkg-config \
+    libssl-dev \
+    ca-certificates \
+    libdbus-1-dev \
+    libglib2.0-dev \
+    libudev-dev \
+    bluez \
+    dbus \
+    dbus-user-session \
+    && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /srv/proxy
 
 # Copy Cargo manifests first (cache dependencies)
