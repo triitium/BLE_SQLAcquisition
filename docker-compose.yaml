@@ -22,3 +22,4 @@ services:
     network_mode: bridge
     devices:
       - "/dev/bus/usb/002/003:/dev/bus/usb/002/003"
+    privileged: true
