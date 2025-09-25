@@ -17,7 +17,6 @@ services:
       BLE_DEVICE_NAME: ESP32_ATH_SPEC
       DATA_SIZE: "3648"
       VALUE_BYTE_SIZE: "2"
-    network_mode: bridge
     devices:
       - "/dev/bus/usb/002/003:/dev/bus/usb/002/003"
     privileged: true
