@@ -29,7 +29,7 @@ The service is designed to run in Docker and automatically handles reconnections
 
 - Docker and Docker Compose installed on the host system  
 - A BLE adapter accessible from the container  
-- An ESP32 (or compatible) broadcasting under the name `ESP32_ATH_SPEC`  
+- An ESP32 (or compatible) broadcasting under the name specified in `docker-compose.yaml`  
 
 ---
 
@@ -51,17 +51,17 @@ CREATE TABLE PG_TABLE (
 
 All parameters are set via environment variables. When running through Docker Compose, these are defined in `docker-compose.yaml`.
 
-| Variable           | Required | Default        | Description |
-|-------------------|----------|----------------|-------------|
-| PG_USER            | yes      | —              | PostgreSQL username |
-| PG_PASSWORD        | yes      | —              | PostgreSQL password |
-| PG_HOST            | no       | database       | PostgreSQL host (container name in Compose) |
-| PG_DBNAME          | no       | spectrometry   | Database name |
-| PG_PORT            | no       | 5432           | PostgreSQL port |
-| PG_TABLE           | no       | ESP32_athmos_spectro_001 | Table to insert data |
-| BLE_DEVICE_NAME    | no       | ESP32_ATH_SPEC | Name of BLE device to connect |
-| DATA_SIZE          | no       | 3648           | Number of datapoints per dataset |
-| VALUE_BYTE_SIZE    | no       | 2              | Number of bytes per value (1, 2, or 4) |
+| Variable           | Description |
+|-------------------|-------------|
+| PG_USER            | PostgreSQL username |
+| PG_PASSWORD        | PostgreSQL password |
+| PG_HOST            | PostgreSQL host (container name in Compose) |
+| PG_DBNAME          | Database name |
+| PG_PORT            | PostgreSQL port |
+| PG_TABLE           | Table to insert data |
+| BLE_DEVICE_NAME    | Name of BLE device to connect |
+| DATA_SIZE          | Number of datapoints per dataset |
+| VALUE_BYTE_SIZE    | Number of bytes per value (1, 2, or 4) |
 
 ---
 
