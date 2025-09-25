@@ -1,6 +1,6 @@
 # BLE_SQLAcquisition
 
-Proxy interface for transferring spectrometry sensor data to a PostgreSQL database via Bluetooth Low Energy (BLE).
+Proxy interface for transferring sensor data to a PostgreSQL database via Bluetooth Low Energy (BLE).
 
 ---
 
@@ -38,7 +38,7 @@ The service is designed to run in Docker and automatically handles reconnections
 The application expects the following table in PostgreSQL:
 
 ```sql
-CREATE TABLE example_table (
+CREATE TABLE PG_TABLE (
     id SERIAL PRIMARY KEY,
     datapoints REAL[],
     timestamp TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
