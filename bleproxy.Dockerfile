@@ -12,6 +12,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     bluez \
     dbus \
     dbus-user-session \
+    bluetooth \
+    libbluetooth-dev \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /srv/proxy
@@ -35,7 +37,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy the compiled binary
-COPY --from=builder /usr/src/app/target/release/bleproxy /usr/local/bin/bleproxy
+COPY --from=builder /usr/src/app/target/release/bleproxy /usr/local/bin/ble_proxy
 
 # Entrypoint
-CMD ["bleproxy"]
+CMD ["ble_proxy"]
