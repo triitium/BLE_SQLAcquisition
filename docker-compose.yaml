@@ -7,8 +7,6 @@ services:
       dockerfile: Dockerfile.bleproxy
     container_name: ble_proxy
     restart: unless-stopped
-    depends_on:
-      - database
     environment:
       PG_USER: external
       PG_PASSWORD: changeme
@@ -25,3 +23,7 @@ services:
     privileged: true
     networks:
       - vnet1
+
+networks:
+  vnet1:
+    external: true
