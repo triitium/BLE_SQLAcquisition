@@ -1,5 +1,5 @@
 # Stage 1: Build Rust project
-FROM rust:1.72 AS builder
+FROM rust:1.90.0-slim-bullseye AS builder
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
@@ -35,7 +35,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy the compiled binary
-COPY --from=builder /usr/src/app/target/release/ble_proxy /usr/local/bin/ble_proxy
+COPY --from=builder /usr/src/app/target/release/bleproxy /usr/local/bin/bleproxy
 
 # Entrypoint
-CMD ["ble_proxy"]
+CMD ["bleproxy"]
