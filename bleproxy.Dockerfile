@@ -37,7 +37,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy the compiled binary
-COPY --from=builder /usr/src/app/target/release/bleproxy /usr/local/bin/ble_proxy
+COPY --from=builder /srv/proxy/target/release/bleproxy /usr/local/bin/ble_proxy
 
 # Entrypoint
 CMD ["ble_proxy"]
