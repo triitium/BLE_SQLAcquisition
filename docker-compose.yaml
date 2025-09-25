@@ -21,4 +21,4 @@ services:
       VALUE_BYTE_SIZE: "2"
     network_mode: bridge
     devices:
-      - "/dev/bus/usb/001/005:/dev/bus/usb/001/005" # PLACEHOLDER
+      - "/dev/bus/usb/002/003:/dev/bus/usb/002/003"
