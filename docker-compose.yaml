@@ -4,7 +4,7 @@ services:
   ble_proxy:
     build:
       context: .
-      dockerfile: Dockerfile.bleproxy
+      dockerfile: bleproxy.Dockerfile
     container_name: ble_proxy
     restart: unless-stopped
     environment:
