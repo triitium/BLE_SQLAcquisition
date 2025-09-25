@@ -23,3 +23,5 @@ services:
     devices:
       - "/dev/bus/usb/002/003:/dev/bus/usb/002/003"
     privileged: true
+    networks:
+      - vnet1
