@@ -6,7 +6,6 @@ use tokio_postgres::NoTls;
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // --- Load environment variables ---
     let user = env::var("PG_USER").expect("PG_USER not set");
     let password = env::var("PG_PASSWORD").expect("PG_PASSWORD not set");
     let host = env::var("PG_HOST").unwrap_or_else(|_| "database".into());
@@ -31,7 +30,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         host, user, password, dbname, port
     );
 
-    // --- Connect to PostgreSQL ---
     let (pg_client, connection) = tokio_postgres::connect(&conn_str, NoTls).await?;
     tokio::spawn(async move {
         if let Err(e) = connection.await {
@@ -39,13 +37,11 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
     });
 
-    // --- Setup BLE manager ---
     let manager = Manager::new().await?;
     let adapters = manager.adapters().await?;
     let central = adapters.into_iter().nth(0).expect("No BLE adapter found");
 
     loop {
-        // Scan until the desired device is found
         let peripheral = loop {
             println!("Scanning for {}...", device_name);
             central.start_scan(ScanFilter::default()).await?;
@@ -67,7 +63,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
         };
 
-        // Connect
         if let Err(e) = peripheral.connect().await {
             eprintln!("Failed to connect: {}", e);
             sleep(Duration::from_secs(30)).await;
@@ -75,7 +70,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
         println!("Connected to {}!", device_name);
 
-        // Discover characteristics
         let characteristics = peripheral.characteristics();
         let indicate_char = match characteristics.into_iter()
             .find(|c| c.properties.contains(CharPropFlags::INDICATE)) 
@@ -91,7 +85,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
         println!("Subscribing to characteristic with UUID: {}", indicate_char.uuid);
 
-        // Subscribe & buffer data
         let mut buffer: Vec<u8> = Vec::new();
         if let Err(e) = peripheral.subscribe(&indicate_char).await {
             eprintln!("Failed to subscribe: {}", e);
@@ -131,7 +124,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             }
         })).await;
 
-        // Stay connected
         loop {
             if !peripheral.is_connected().await? {
                 println!("Device disconnected, will rescan...");
