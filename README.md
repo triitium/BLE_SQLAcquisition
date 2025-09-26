@@ -107,3 +107,7 @@ Planned improvements:
 
 ---
 
+# Credits
+
+This Project was entirely written by me.
+Because of defecites regarding documentation skills, this readme was written using AI
