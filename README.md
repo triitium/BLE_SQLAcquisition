@@ -70,7 +70,7 @@ All parameters are set via environment variables. When running through Docker Co
 1. Build and start the services:
 
 ```bash
-docker compose up --build
+docker compose -f bleproxy-compose.yaml up --build
 ```
 
 2. The container will start:
